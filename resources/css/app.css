@@ -1,0 +1,27 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.dataTables_length, .dataTables_filter {
+    @apply block;
+}
+
+.dataTables_length label {
+    @apply flex items-center;
+}
+
+.dataTables_length label select {
+    @apply w-12 mx-2;
+}
+
+.dataTables_filter label {
+    @apply flex items-center justify-end;
+}
+
+.dataTables_filter label input {
+    @apply w-36 ml-2;
+}
+
+.dataTables_paginate {
+    @apply flex justify-end;
+}
