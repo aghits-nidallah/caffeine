@@ -123,6 +123,22 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    /**
+     * App messages.
+     */
+    
+    'store_success_message' => env('STORE_SUCCESS_MESSAGE'),
+    
+    'update_success_message' => env('UPDATE_SUCCESS_MESSAGE'),
+    
+    'delete_success_message' => env('DELETE_SUCCESS_MESSAGE'),
+    
+    'store_failed_message' => env('STORE_FAILED_MESSAGE'),
+    
+    'update_failed_message' => env('UPDATE_FAILED_MESSAGE'),
+    
+    'delete_failed_message' => env('DELETE_FAILED_MESSAGE'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
