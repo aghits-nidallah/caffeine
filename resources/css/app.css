@@ -11,7 +11,7 @@
 }
 
 .dataTables_length label select {
-    @apply w-12 mx-2;
+    @apply w-16 mx-2;
 }
 
 .dataTables_filter label {
@@ -19,7 +19,7 @@
 }
 
 .dataTables_filter label input {
-    @apply w-36 ml-2;
+    @apply w-36 ml-2 px-2 py-1 rounded-md border border-gray-300;
 }
 
 .dataTables_paginate {
