@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
+use Jdenticon\Identicon;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +19,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
+    Route::view('/', 'dashboard.index')->name('index');
+
+    Route::resource('store', StoreController::class);
+});
+
+Route::get('icon', function() {
+    $value = $_GET['value'];
+    $size = min(max(intval($_GET['size']), 20), 500);
+
+    $icon = new Identicon();
+    $icon->setValue($value);
+    $icon->setSize($size);
+    $icon->displayImage('png');
+})->name('icon');
 
 require __DIR__.'/auth.php';
