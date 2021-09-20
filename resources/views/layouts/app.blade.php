@@ -16,7 +16,10 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased text-gray-700">
+        <x-validation-errors-alert />
+        <x-interaction-alert />
+        
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
