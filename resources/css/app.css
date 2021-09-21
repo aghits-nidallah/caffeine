@@ -26,6 +26,10 @@
     @apply flex justify-end;
 }
 
+.dataTables_wrapper {
+    @apply overflow-x-auto;
+}
+
 .dataTable tr {
     @apply align-middle;
 }
