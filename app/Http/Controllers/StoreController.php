@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\StoreDataTable;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -13,11 +14,11 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(StoreDataTable $dataTable)
     {
         Gate::authorize('viewAny');
 
-        return view('dashboard.store.index');
+        return $dataTable->render('dashboard.store.index');
     }
 
     /**
@@ -142,8 +143,25 @@ class StoreController extends Controller
 
         return redirect()->back()->with([
             'success' => true,
-            'message' => config('app.delete_success_message') . $e->getMessage(),
+            'message' => config('app.delete_success_message'),
         ]);
+    }
+
+    public function restore(Store $store)
+    {
+        // try {
+        //     $store->withTrashed()->restore();
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->with([
+        //         'success' => false,
+        //         'message' => config('app.delete_failed_message') . $e->getMessage(),
+        //     ]);
+        // }
+
+        // return redirect()->back()->with([
+        //     'success' => true,
+        //     'message' => config('app.delete_success_message'),
+        // ]);
     }
     
     /**

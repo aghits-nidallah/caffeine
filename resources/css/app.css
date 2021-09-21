@@ -25,3 +25,7 @@
 .dataTables_paginate {
     @apply flex justify-end;
 }
+
+.dataTable tr {
+    @apply align-middle;
+}

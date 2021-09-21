@@ -32,4 +32,9 @@ class Store extends Model
         'banner',
         'description',
     ];
+
+    protected $appends = [
+        'picture_url',
+        'banner_url',
+    ];
 }
