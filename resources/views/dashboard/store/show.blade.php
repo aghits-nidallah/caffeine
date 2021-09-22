@@ -28,7 +28,7 @@
                             <h5 class="text-lg font-semibold text-center">
                                 {{ $store->name }}
                             </h5>
-                            <p class="text-center">
+                            <p class="text-center break-all">
                                 {!! $store->description ?? '<i>Belum ada deskripsi</i>'!!}
                             </p>
                         </div>
