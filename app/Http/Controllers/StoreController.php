@@ -7,6 +7,7 @@ use App\DataTables\StoreDataTable;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
@@ -138,6 +139,14 @@ class StoreController extends Controller
         Gate::authorize('delete', $store);
 
         try {
+            if (Storage::exists('public/store_pictures/' . $store->picture)) {
+                Storage::delete('public/store_pictures/' . $store->picture);
+            }
+
+            if (Storage::exists('public/store_banners/' . $store->banner)) {
+                Storage::delete('public/store_banners/' . $store->banner);
+            }
+
             $store->delete();
         } catch (\Exception $e) {
             return redirect()->back()->with([
@@ -181,6 +190,10 @@ class StoreController extends Controller
      */
     private function store_asset(Request $request, Store $store, string $field, string $storagePath)
     {
+        if (Storage::exists($storagePath . $store->$field)) {
+            Storage::delete($storagePath . $store->$field);
+        }
+
         $extension = "." . $request->file($field)->getClientOriginalExtension();
         $new_filename = str_replace('.', '', microtime(true)) . $extension;
         
