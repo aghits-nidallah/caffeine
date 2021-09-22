@@ -28,8 +28,9 @@ class ProductDataTable extends DataTable
             ->addIndexColumn()
             ->editColumn('name', 'dashboard.product.name')
             ->editColumn('price', 'Rp{{ number_format($price, 0, 0, ".") }}')
+            ->editColumn('active', 'dashboard.product.active')
             ->addColumn('action', 'dashboard.product.action')
-            ->rawColumns(['name', 'action']);
+            ->rawColumns(['name', 'active', 'action']);
     }
 
     /**

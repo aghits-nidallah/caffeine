@@ -99,17 +99,18 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         Gate::authorize('update', $product);
-        
+
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'stock' => ['required', 'integer'],
-            'price' => ['required', 'integer'],
+            'name' => ['string', 'max:255'],
+            'description' => ['string'],
+            'stock' => ['integer'],
+            'price' => ['integer'],
+            'active' => ['boolean'],
         ]);
 
         try {
             $product->update($request->only([
-                'name', 'description', 'stock', 'price'
+                'name', 'description', 'stock', 'price', 'active'
             ]));
         } catch (\Exception $e) {
             return redirect()->back()->with([
