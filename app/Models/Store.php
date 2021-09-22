@@ -11,6 +11,11 @@ class Store extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public function product()
+    {
+        return $this->hasMany(Product::class, 'user_id', 'user_id');
+    }
+    
     public function getPictureUrlAttribute()
     {
         return $this->picture == NULL

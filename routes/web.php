@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use Jdenticon\Identicon;
@@ -23,6 +24,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard', 'as' => 'dashboar
     Route::view('/', 'dashboard.index')->name('index');
 
     Route::resource('store', StoreController::class);
+    Route::resource('product', ProductController::class);
 });
 
 Route::get('icon', function() {

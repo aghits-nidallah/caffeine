@@ -34,7 +34,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-span-9">
+                    <div class="bg-white w-full rounded-md shadow-md p-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h6 class="font-semibold">
+                                Produk Saya
+                            </h6>
+                            <a href="{{ route('dashboard.product.create') }}">
+                                <x-button>
+                                    Tambah Produk
+                                </x-button>
+                            </a>
+                        </div>
+                        
+                        {{ $dataTable->table() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    {{ $dataTable->scripts() }}
 </x-app-layout>

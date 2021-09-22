@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ProductDataTable;
 use App\DataTables\StoreDataTable;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -26,7 +27,9 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view('dashboard.store.create');
+        return auth()->user()->store
+            ? redirect()->route('dashboard.store.show', auth()->user()->store->id)
+            : view('dashboard.store.create');
     }
     
     /**
@@ -60,13 +63,15 @@ class StoreController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Store  $store
+     * @param  \App\DataTables\ProductDataTable  $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function show(Store $store)
+    public function show(Store $store, ProductDataTable $dataTable)
     {
         Gate::authorize('view', $store);
         
-        return view('dashboard.store.show', [
+        $dataTable->user_id = auth()->user()->id;
+        return $dataTable->render('dashboard.store.show', [
             'store' => $store
         ]);
     }
@@ -149,6 +154,7 @@ class StoreController extends Controller
 
     public function restore(Store $store)
     {
+        // TODO: Restore store
         // try {
         //     $store->withTrashed()->restore();
         // } catch (\Exception $e) {
