@@ -70,7 +70,7 @@ class StoreController extends Controller
     {
         Gate::authorize('view', $store);
         
-        $dataTable->user_id = auth()->user()->id;
+        $dataTable->user_id = $store->user_id;
         return $dataTable->render('dashboard.store.show', [
             'store' => $store
         ]);
