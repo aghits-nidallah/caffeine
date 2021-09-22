@@ -16,7 +16,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-12 grid-flow-row gap-6">
-                <div class="col-span-3">
+                <div class="col-span-12 sm:col-span-4 xl:col-span-3">
                     <div class="bg-white w-full rounded-md shadow-md relative">
                         <div class="aspect-w-16 aspect-h-9 w-full">
                             <img src="{{ $store->banner_url }}" class="w-full h-full object-cover rounded-t-md border-b" />
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-span-9">
+                <div class="col-span-12 sm:col-span-8 xl:col-span-9">
                     <div class="bg-white w-full rounded-md shadow-md p-4">
                         <div class="flex items-center justify-between mb-4">
                             <h6 class="font-semibold">

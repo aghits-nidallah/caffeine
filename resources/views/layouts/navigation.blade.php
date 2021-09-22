@@ -25,7 +25,7 @@
                     </div>
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="auth()->user()->store ? route('dashboard.store.show', auth()->user()->store->id) : route('dashboard.store.create')" :active="request()->routeIs('dashboard.store.index')">
+                        <x-nav-link :href="auth()->user()->store ? route('dashboard.store.show', auth()->user()->store->id) : route('dashboard.store.create')" :active="request()->routeIs('dashboard.store.show', '*')">
                             {{ auth()->user()->store ? __('Toko Saya') : __('Buat Toko') }}
                         </x-nav-link>
                     </div>
@@ -76,11 +76,25 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="pt-2 pb-2 space-y-1">
             <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
+
+        @if (auth()->user()->role == 'admin')
+            <div class="pt-2 pb-2 space-y-1">
+                <x-responsive-nav-link :href="route('dashboard.store.index')" :active="request()->routeIs('dashboard.store.index')">
+                    {{ __('Daftar Toko') }}
+                </x-responsive-nav-link>
+            </div>
+        @else
+            <div class="pb-2 space-y-1">
+                <x-responsive-nav-link :href="auth()->user()->store ? route('dashboard.store.show', auth()->user()->store->id) : route('dashboard.store.create')" :active="request()->routeIs('dashboard.store.show', '*')">
+                    {{ auth()->user()->store ? __('Toko Saya') : __('Buat Toko') }}
+                </x-responsive-nav-link>
+            </div>
+        @endif
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
