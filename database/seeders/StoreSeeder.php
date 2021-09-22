@@ -15,9 +15,9 @@ class StoreSeeder extends Seeder
     public function run()
     {
         User::factory()
-            ->count(100)
+            ->count(10)
             ->hasStore()
-            ->hasProduct(100)
+            ->hasProduct(10)
             ->create();
     }
 }

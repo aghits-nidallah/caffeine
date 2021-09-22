@@ -15,10 +15,12 @@
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form action="{{ route('dashboard.product.store') }}" method="post" autocomplete="off">
+                    <form action="{{ route('dashboard.product.store') }}" method="post" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}" />
-                        <div class="flex flex-col">
+                        <x-product-picture-form count="5" />
+                        
+                        <div class="flex flex-col mt-4">
                             <x-label for="name">Nama Produk</x-label>
                             <x-input type="text" name="name" id="name" value="{{ old('name') }}" class="mt-2" required />
                         </div>

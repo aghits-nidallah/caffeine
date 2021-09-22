@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\StoreController;
+# Vendor classes
 use Illuminate\Support\Facades\Route;
 use Jdenticon\Identicon;
+
+# App-generated classes
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductPictureController;
+use App\Http\Controllers\StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +29,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard', 'as' => 'dashboar
 
     Route::resource('store', StoreController::class);
     Route::resource('product', ProductController::class);
+    Route::resource('product_picture', ProductPictureController::class);
 });
 
 Route::get('icon', function() {

@@ -5,10 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function getFirstPictureUrlAttribute()
+    {
+        return $this->hasMany(ProductPicture::class)->where('order', 0)->first() != null
+            ? Storage::url('public/product_pictures/' . $this->hasMany(ProductPicture::class)->where('order', 0)->first()->storage_name)
+            : route('icon', ['value' => $this->id, 'size' => 500]);
+    }
+    
+    public function pictures()
+    {
+        return $this->hasMany(ProductPicture::class);
+    }
 
     protected $fillable = [
         'user_id',
@@ -17,5 +30,9 @@ class Product extends Model
         'stock',
         'price',
         'active',
+    ];
+
+    protected $appends = [
+        'first_picture_url',
     ];
 }
