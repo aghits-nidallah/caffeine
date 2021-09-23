@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Jdenticon\Identicon;
 
 # App-generated classes
+use App\Http\Controllers\OnlineShopController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductPictureController;
 use App\Http\Controllers\StoreController;
@@ -20,9 +21,7 @@ use App\Http\Controllers\StoreController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [OnlineShopController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
     Route::view('/', 'dashboard.index')->name('index');
