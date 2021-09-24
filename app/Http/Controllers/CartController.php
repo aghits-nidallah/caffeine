@@ -94,7 +94,7 @@ class CartController extends Controller
         Gate::authorize('update', $cart);
 
         $request->validate([
-            'quantity' => ['required', 'integer', 'gt:0', 'lt:max_quantity'],
+            'quantity' => ['required', 'integer', 'gt:0', 'lte:max_quantity'],
         ]);
 
         try {
