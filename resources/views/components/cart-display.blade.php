@@ -1,7 +1,7 @@
-<div class="flex min-h-[calc(0.25rem*32)]">
-    <img src="{{ $cart->product->first_picture_url }}" class="w-32 h-32 object-cover border rounded" />
-    <div class="flex flex-col ml-4 w-full h-full justify-between">
-        <div class="flex flex-col">
+<div class="flex flex-col sm:flex-row items-center sm:items-start min-h-[calc(0.25rem*32)] px-2 sm:px-0">
+    <img src="{{ $cart->product->first_picture_url }}" class="w-32 h-32 mb-2 sm:mb-0 object-cover border rounded" />
+    <div class="flex flex-col ml-0 sm:ml-4 w-full h-full justify-between">
+        <div class="flex flex-col items-center sm:items-start mb-2 sm:mb-0">
             <h5 class="text-lg font-semibold">
                 {{ $cart->product->name}}
             </h5>
@@ -16,7 +16,7 @@
                 {{ $cart->product->store->name }}
             </p>
         </div>
-        <div class="flex items-center justify-end">
+        <div class="flex items-center justify-center sm:justify-end">
             <form action="{{ route('cart.destroy', $cart->id) }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                 @csrf
                 @method('DELETE')

@@ -30,7 +30,7 @@
                             </a>
                             <form action="{{ route('index') }}" method="get">
                                 @csrf
-                                <x-input type="text" name="search" id="search" placeholder="Cari..." />
+                                <x-input type="text" name="search" id="search" placeholder="Cari..." class="w-40 sm:w-auto" />
                             </form>
                         </div>
                         <div class="flex items-center">
@@ -39,8 +39,12 @@
                                     @guest
                                         <i class="fas fa-user"></i>
                                     @else
-                                        <i class="fas fa-user mr-2"></i>
-                                        {{ auth()->user()->name }}
+                                        <div class="flex cursor-pointer items-center">
+                                            <i class="fas fa-user mr-2"></i>
+                                            <span class="hidden sm:inline">
+                                                {{ auth()->user()->name }}
+                                            </span>
+                                        </div>
                                     @endguest
                                 </x-slot>
 

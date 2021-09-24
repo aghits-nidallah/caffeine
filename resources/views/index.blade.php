@@ -4,7 +4,7 @@
             <h5 class="text-lg font-semibold">
                 Produk Terbaru
             </h5>
-            <div class="grid grid-cols-8 grid-flow-row gap-6 mt-2">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 grid-flow-row gap-6 mt-2">
                 @foreach ($newest_products as $product)
                     <x-product-display :product="$product" />
                 @endforeach
@@ -20,7 +20,7 @@
             <h5 class="text-lg font-semibold">
                 Rekomendasi Toko
             </h5>
-            <div class="grid grid-cols-8 grid-flow-row gap-6 mt-2">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 grid-flow-row gap-6 mt-2">
                 @foreach ($store_recommendations as $store)
                     <x-store-display :store="$store" />
                 @endforeach
@@ -36,7 +36,7 @@
             <h5 class="text-lg font-semibold">
                 Produk Terpopuler
             </h5>
-            <div class="grid grid-cols-8 grid-flow-row gap-6 mt-2">
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 grid-flow-row gap-6 mt-2">
                 @foreach ($popular_products as $product)
                     <x-product-display :product="$product" />
                 @endforeach
