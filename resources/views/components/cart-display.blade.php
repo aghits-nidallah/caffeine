@@ -2,19 +2,19 @@
     <img src="{{ $cart->product->first_picture_url }}" class="w-32 h-32 mb-2 sm:mb-0 object-cover border rounded" />
     <div class="flex flex-col ml-0 sm:ml-4 w-full h-full justify-between">
         <div class="flex flex-col items-center sm:items-start mb-2 sm:mb-0">
-            <h5 class="text-lg font-semibold">
+            <a href="javascript:void(0)" class="text-lg font-semibold">
                 {{ $cart->product->name}}
-            </h5>
+            </a>
             <p class="text-sm text-gray-500">
                 Stok tersisa: {{ $cart->product->stock }}
             </p>
             <p class="line-clamp-2 mb-1">
                 {{ $cart->product->description}}
             </p>
-            <p class="mb-1">
+            <a href="javascript:void(0)" class="mb-1">
                 <i class="fas fa-store mr-2"></i>
                 {{ $cart->product->store->name }}
-            </p>
+            </a>
         </div>
         <div class="flex items-center justify-center sm:justify-end">
             <form action="{{ route('cart.destroy', $cart->id) }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
