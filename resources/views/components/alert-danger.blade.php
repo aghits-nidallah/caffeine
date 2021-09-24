@@ -1,4 +1,4 @@
-<div class="bg-white px-3 py-3 shadow-md rounded-md fixed bottom-4 right-4 w-80 flex items-start">
+<div class="bg-white px-3 py-3 shadow-md rounded-md fixed bottom-4 right-4 w-80 flex items-start z-[1000]">
     <i class="fas fa-exclamation-triangle text-red-500"></i>
     <div class="flex flex-col ml-2 w-full">
         <h6 class="font-semibold text-red-500">
