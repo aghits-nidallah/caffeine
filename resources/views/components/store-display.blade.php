@@ -4,9 +4,9 @@
     </div>
     
     <div class="px-3 py-2">
-        <p class="text-sm line-clamp-1">
+        <a href="javascript:void(0)" class="text-sm line-clamp-1">
             {{ $store->name }}
-        </p>
+        </a>
         <p class="text-sm text-gray-500 line-clamp-3">
             {{ $store->description }}
         </p>

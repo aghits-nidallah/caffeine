@@ -17,6 +17,11 @@ class Product extends Model
             ? Storage::url('public/product_pictures/' . $this->hasMany(ProductPicture::class)->where('order', 0)->first()->storage_name)
             : route('icon', ['value' => $this->id, 'size' => 500]);
     }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'user_id', 'user_id');
+    }
     
     public function pictures()
     {

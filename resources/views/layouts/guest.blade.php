@@ -16,13 +16,18 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body>
+    <body class="bg-gray-100">
+        <x-validation-errors-alert />
+        <x-interaction-alert />
+
         <div class="font-sans text-gray-900 antialiased">
             @if ($show_header)
                 <div class="bg-white py-3 shadow">
                     <div class="flex justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="flex items-center">
-                            <x-application-logo class="w-8 h-8 mr-4" />
+                            <a href="{{ route('index') }}">
+                                <x-application-logo class="w-8 h-8 mr-4" />
+                            </a>
                             <form action="{{ route('index') }}" method="get">
                                 @csrf
                                 <x-input type="text" name="search" id="search" placeholder="Cari..." />
@@ -54,8 +59,8 @@
                                         
                                         <div class="border-b border-gray-300 my-1"></div>
 
-                                        <x-dropdown-link>
-                                            Keranjang
+                                        <x-dropdown-link :href="route('cart.index')">
+                                            Keranjang ({{ auth()->user()->cart()->count() }})
                                         </x-dropdown-link>
                                         
                                         <div class="border-b border-gray-300 my-1"></div>

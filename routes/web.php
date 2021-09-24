@@ -1,6 +1,8 @@
 <?php
 
 # Vendor classes
+
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use Jdenticon\Identicon;
 
@@ -23,12 +25,16 @@ use App\Http\Controllers\StoreController;
 
 Route::get('/', [OnlineShopController::class, 'index'])->name('index');
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
-    Route::view('/', 'dashboard.index')->name('index');
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('cart', CartController::class)->except(['show', 'edit', 'create']);
 
-    Route::resource('store', StoreController::class);
-    Route::resource('product', ProductController::class);
-    Route::resource('product_picture', ProductPictureController::class);
+    Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
+        Route::view('/', 'dashboard.index')->name('index');
+    
+        Route::resource('store', StoreController::class);
+        Route::resource('product', ProductController::class);
+        Route::resource('product_picture', ProductPictureController::class);
+    });
 });
 
 Route::get('icon', function() {
