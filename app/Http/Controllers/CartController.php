@@ -39,13 +39,13 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => ['required', 'integer', 'exists:users,id'],
             'product_id' => ['required', 'integer', 'exists:products,id'],
+            'quantity' => ['integer', 'gt:0', 'lte:max_quantity'],
         ]);
 
         try {
-            Cart::create($request->only([
-                'user_id', 'product_id',
+            auth()->user()->cart()->create($request->only([
+                'product_id', 'quantity'
             ]));
         } catch (\Exception $e) {
             return redirect()->back()->with([

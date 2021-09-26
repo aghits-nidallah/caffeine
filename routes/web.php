@@ -9,7 +9,6 @@ use Jdenticon\Identicon;
 # App-generated classes
 use App\Http\Controllers\OnlineShopController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductPictureController;
 use App\Http\Controllers\StoreController;
 
 /*
@@ -27,13 +26,13 @@ Route::get('/', [OnlineShopController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('cart', CartController::class)->except(['show', 'edit', 'create']);
+    Route::get('/product/{product}', [OnlineShopController::class, 'product'])->name('product');
 
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
         Route::view('/', 'dashboard.index')->name('index');
-    
+
         Route::resource('store', StoreController::class);
-        Route::resource('product', ProductController::class);
-        Route::resource('product_picture', ProductPictureController::class);
+        Route::resource('product', ProductController::class)->except('index');
     });
 });
 

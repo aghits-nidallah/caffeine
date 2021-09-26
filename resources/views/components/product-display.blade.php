@@ -2,9 +2,9 @@
     <div class="aspect-w-1 aspect-h-1 border-b">
         <img src="{{ $product->first_picture_url }}" class="w-full h-full object-cover" />
     </div>
-    
+
     <div class="px-2 py-2">
-        <a href="javascript:void(0)" class="text-sm line-clamp-1">
+        <a href="{{ route('product', $product->id) }}" class="text-sm line-clamp-1">
             {{ $product->name }}
         </a>
         <a href="javascript:void(0)" class="text-sm text-gray-500 line-clamp-1">

@@ -32,7 +32,7 @@ class StoreController extends Controller
             ? redirect()->route('dashboard.store.show', auth()->user()->store->id)
             : view('dashboard.store.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -59,7 +59,7 @@ class StoreController extends Controller
             'message' => config('app.store_success_message'),
         ]);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -70,7 +70,7 @@ class StoreController extends Controller
     public function show(Store $store, ProductDataTable $dataTable)
     {
         Gate::authorize('view', $store);
-        
+
         $dataTable->user_id = $store->user_id;
         return $dataTable->render('dashboard.store.show', [
             'store' => $store
@@ -121,7 +121,7 @@ class StoreController extends Controller
                 'message' => config('app.update_failed_message') . $e->getMessage(),
             ]);
         }
-        
+
         return redirect()->back()->with([
             'success' => true,
             'message' => config('app.update_success_message'),
@@ -178,10 +178,10 @@ class StoreController extends Controller
         //     'message' => config('app.delete_success_message'),
         // ]);
     }
-    
+
     /**
      * Store picture to local storage and save the information to database.
-     * 
+     *
      * @param Request $request
      * @param Store $store
      * @param string $field
@@ -196,7 +196,7 @@ class StoreController extends Controller
 
         $extension = "." . $request->file($field)->getClientOriginalExtension();
         $new_filename = str_replace('.', '', microtime(true)) . $extension;
-        
+
         $request->file($field)->storePubliclyAs($storagePath, $new_filename);
 
         $store->update([

@@ -2,7 +2,7 @@
     <img src="{{ $cart->product->first_picture_url }}" class="w-32 h-32 mb-2 sm:mb-0 object-cover border rounded" />
     <div class="flex flex-col ml-0 sm:ml-4 w-full h-full justify-between">
         <div class="flex flex-col items-center sm:items-start mb-2 sm:mb-0">
-            <a href="javascript:void(0)" class="text-lg font-semibold">
+            <a href="{{ route('product', $cart->product->id) }}" class="text-lg font-semibold">
                 {{ $cart->product->name}}
             </a>
             <p class="text-sm text-gray-500">

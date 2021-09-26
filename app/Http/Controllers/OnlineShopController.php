@@ -10,7 +10,7 @@ class OnlineShopController extends Controller
 {
     /**
      * Show the index.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -18,11 +18,24 @@ class OnlineShopController extends Controller
         $newest_products = Product::orderBy('created_at', 'desc')->take(16)->get();
         $store_recommendations = Store::take(8)->inRandomOrder()->get();
         $popular_products = Product::inRandomOrder()->take(16)->get();
-        
+
         return view('index', [
             'newest_products' => $newest_products,
             'store_recommendations' => $store_recommendations,
             'popular_products' => $popular_products,
+        ]);
+    }
+
+    /**
+     * Show the product detail.
+     *
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function product(Product $product)
+    {
+        return view('product', [
+            'product' => $product
         ]);
     }
 }

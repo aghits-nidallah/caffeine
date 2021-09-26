@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\ProductPicture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     private $file_upload_error_message;
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -90,7 +89,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         Gate::authorize('update', $product);
-        
+
         return view('dashboard.product.edit', [
             'product' => $product
         ]);
@@ -144,7 +143,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         Gate::authorize('delete', $product);
-        
+
         try {
             $product->pictures()->delete();
             $product->delete();
@@ -163,7 +162,7 @@ class ProductController extends Controller
 
     /**
      * Upload the product's pictures.
-     * 
+     *
      * @ref \App\Http\Controllers\ProductController.php@119
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Product $product
@@ -199,7 +198,7 @@ class ProductController extends Controller
     /**
      * Sub function of [upload_product_pictures()], update the existing data on
      * database.
-     * 
+     *
      * @ref \App\Http\Controllers\ProductController.php@185
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Product $product
@@ -226,7 +225,7 @@ class ProductController extends Controller
 
     /**
      * Sub function of [upload_product_pictures()], store the data to database.
-     * 
+     *
      * @ref \App\Http\Controllers\ProductController.php@189
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Product $product
