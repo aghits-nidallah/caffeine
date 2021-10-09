@@ -25,7 +25,13 @@
                     </div>
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="auth()->user()->store ? route('dashboard.store.show', auth()->user()->store->id) : route('dashboard.store.create')" :active="request()->routeIs('dashboard.store.show', auth()->user()->store->id)">
+                        <x-nav-link
+                            :href="auth()->user()->store == null
+                                ? route('dashboard.store.create')
+                                : route('dashboard.store.show', auth()->user()->store->id)"
+                            :active="auth()->user()->store == null
+                                ? request()->routeIs('dashboard.store.create')
+                                : request()->routeIs('dashboard.store.show', auth()->user()->store->id)">
                             {{ auth()->user()->store ? __('Toko Saya') : __('Buat Toko') }}
                         </x-nav-link>
                     </div>
@@ -90,9 +96,6 @@
             </div>
         @else
             <div class="pb-2 space-y-1">
-                <x-responsive-nav-link :href="auth()->user()->store ? route('dashboard.store.show', auth()->user()->store->id) : route('dashboard.store.create')" :active="request()->routeIs('dashboard.store.show', auth()->user()->store->id)">
-                    {{ auth()->user()->store ? __('Toko Saya') : __('Buat Toko') }}
-                </x-responsive-nav-link>
             </div>
         @endif
 
