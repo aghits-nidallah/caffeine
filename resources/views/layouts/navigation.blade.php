@@ -36,6 +36,12 @@
                         </x-nav-link>
                     </div>
                 @endif
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('checkout.index')" :active="request()->routeIs('checkout.index')">
+                        {{ __('Checkout') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -54,6 +60,10 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('cart.index')">
+                            {{ __('Keranjang') }} ({{ auth()->user()->cart()->count() }})
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -96,8 +106,21 @@
             </div>
         @else
             <div class="pb-2 space-y-1">
+                <x-responsive-nav-link
+                    :href="auth()->user()->store == null
+                        ? route('dashboard.store.create')
+                        : route('dashboard.store.show', auth()->user()->store->id)"
+                    :active="auth()->user()->store == null
+                        ? request()->routeIs('dashboard.store.create')
+                        : request()->routeIs('dashboard.store.show', auth()->user()->store->id)">
+                    {{ auth()->user()->store ? __('Toko Saya') : __('Buat Toko') }}
+                </x-responsive-nav-link>
             </div>
         @endif
+
+        <x-responsive-nav-link :href="route('checkout.index')" :active="request()->routeIs('checkout.index')">
+            {{ __('Checkout') }}
+        </x-responsive-nav-link>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -107,6 +130,10 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                    {{ __('Keranjang') }} ({{ auth()->user()->cart()->count() }})
+                </x-responsive-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

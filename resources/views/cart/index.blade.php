@@ -47,7 +47,7 @@
                                     </span>
                                     <span class="text-right font-semibold">
                                         Rp
-                                        {{ 
+                                        {{
                                             number_format(
                                                 collect($cart->with('product')->get())
                                                     ->map(function($el) {
@@ -58,9 +58,12 @@
                                     </span>
                                 </div>
                                 <div class="flex justify-end">
-                                    <x-button>
-                                        Beli ({{ $cart->sum('quantity') }})
-                                    </x-button>
+                                    <form action="{{ route('checkout.store') }}" method="post">
+                                        @csrf
+                                        <x-button>
+                                            Beli ({{ $cart->sum('quantity') }})
+                                        </x-button>
+                                    </form>
                                 </div>
                             @else
                                 Anda belum memasukkan produk ke keranjang.

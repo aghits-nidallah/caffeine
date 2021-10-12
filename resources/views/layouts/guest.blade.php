@@ -60,18 +60,22 @@
                                         <x-dropdown-link :href="route('dashboard.index')">
                                             Dashboard
                                         </x-dropdown-link>
-                                        
+
                                         <div class="border-b border-gray-300 my-1"></div>
 
                                         <x-dropdown-link :href="route('cart.index')">
                                             Keranjang ({{ auth()->user()->cart()->count() }})
                                         </x-dropdown-link>
-                                        
+
+                                        <x-dropdown-link :href="route('checkout.index')">
+                                            Checkout ({{ auth()->user()->checkout()->count() }})
+                                        </x-dropdown-link>
+
                                         <div class="border-b border-gray-300 my-1"></div>
-                                        
+
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
-                
+
                                             <x-dropdown-link :href="route('logout')"
                                                     onclick="event.preventDefault();
                                                                 this.closest('form').submit();">
@@ -85,7 +89,7 @@
                     </div>
                 </div>
             @endif
-        
+
             {{ $slot }}
 
             @if ($show_footer)

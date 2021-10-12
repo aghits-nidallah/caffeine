@@ -3,6 +3,7 @@
 # Vendor classes
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use Jdenticon\Identicon;
 
@@ -26,6 +27,7 @@ Route::get('/', [OnlineShopController::class, 'index'])->name('index');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('cart', CartController::class)->except(['show', 'edit', 'create']);
+    Route::resource('checkout', CheckoutController::class);
     Route::get('/product/{product}', [OnlineShopController::class, 'product'])->name('product');
 
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
