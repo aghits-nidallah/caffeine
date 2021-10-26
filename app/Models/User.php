@@ -32,6 +32,11 @@ class User extends Authenticatable
         return $this->hasMany(Checkout::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Checkout::class, 'user_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

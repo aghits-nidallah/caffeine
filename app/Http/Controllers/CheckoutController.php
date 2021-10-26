@@ -38,12 +38,13 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        $products_in_cart = auth()->user()->cart;
+        $products_in_cart = auth()->user()->cart()->with('store')->get();
 
         try {
             $products_in_cart->each(function($product) {
                 auth()->user()->checkout()->create([
-                    'product_id' => $product->id,
+                    'product_id' => $product->product_id,
+                    'store_id' => $product->store->id,
                     'quantity' => $product->quantity,
                 ]);
             });

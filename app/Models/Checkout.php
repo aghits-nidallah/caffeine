@@ -15,6 +15,11 @@ class Checkout extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -23,8 +28,10 @@ class Checkout extends Model
     protected $fillable = [
         'user_id',
         'product_id',
+        'store_id',
         'quantity',
         'payment_file_path',
+        'expedition_note',
         'is_accepted',
     ];
 }

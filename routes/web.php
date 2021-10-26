@@ -9,6 +9,7 @@ use Jdenticon\Identicon;
 
 # App-generated classes
 use App\Http\Controllers\OnlineShopController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 
@@ -35,6 +36,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::resource('store', StoreController::class);
         Route::resource('product', ProductController::class)->except('index');
+        Route::resource('order', OrderController::class);
     });
 });
 

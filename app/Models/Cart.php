@@ -15,6 +15,17 @@ class Cart extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function store()
+    {
+        return $this->hasOneThrough(
+            Store::class,
+            Product::class,
+            'user_id',
+            'user_id',
+            'user_id',
+        );
+    }
+
     protected $fillable = [
         'user_id',
         'product_id',

@@ -6,7 +6,7 @@ use App\Models\Checkout;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CheckoutPolicy
+class OrderPolicy
 {
     use HandlesAuthorization;
 
@@ -30,7 +30,7 @@ class CheckoutPolicy
      */
     public function view(User $user, Checkout $checkout)
     {
-        //
+        return $user->id === $checkout->user_id;
     }
 
     /**
@@ -53,8 +53,7 @@ class CheckoutPolicy
      */
     public function update(User $user, Checkout $checkout)
     {
-        return $user->id === $checkout->user_id
-            || $user->store->id === $checkout->store_id;
+        return $user->id === $checkout->user_id;
     }
 
     /**
@@ -66,7 +65,7 @@ class CheckoutPolicy
      */
     public function delete(User $user, Checkout $checkout)
     {
-        return $user->id === $checkout->user_id;
+        //
     }
 
     /**

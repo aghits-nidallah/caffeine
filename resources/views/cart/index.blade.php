@@ -57,11 +57,11 @@
                                         }}
                                     </span>
                                 </div>
-                                <div class="flex justify-end">
+                                <div class="flex justify-end mt-2">
                                     <form action="{{ route('checkout.store') }}" method="post">
                                         @csrf
                                         <x-button>
-                                            Beli ({{ $cart->sum('quantity') }})
+                                            Lanjutkan ke Pembayaran ({{ $cart->sum('quantity') }})
                                         </x-button>
                                     </form>
                                 </div>

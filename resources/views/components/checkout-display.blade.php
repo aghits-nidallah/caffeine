@@ -29,51 +29,100 @@
                 </span>
             </div>
         </div>
-        <div class="w-full flex justify-between items-center mt-4">
-            <div class="flex flex-col">
-                <label for="payment_steps" class="font-semibold mb-1">Cara Pembayaran</label>
-                <p class="italic">Scan QRis disini</p>
-            </div>
 
-            @if (!$checkout->payment_file_path)
-                <form action="{{ route('checkout.destroy', $checkout->id) }}" method="post" onsubmit="return confirm('Apakah Anda ingin menghapus produk ini dari list checkout Anda?')">
-                    @csrf
-                    @method('DELETE')
-                    <x-danger-button type="submit">
-                        <i class="fas fa-trash"></i>
-                    </x-danger-button>
-                </form>
-            @endif
-        </div>
-        <div class="w-full flex flex-col mt-4">
-            @if ($checkout->payment_file_path)
-                <div class="flex">
-                    <div class="px-2 py-1 rounded bg-green-500 text-white text-sm">
-                        Menunggu Konfirmasi
+        @if ($show_as_seller)
+            <div class="flex justify-between mt-4">
+                <div class="flex flex-col">
+                    <p class="font-semibold">Bukti Pembayaran</p>
+                    <a href="{{ Storage::url($checkout->payment_file_path) }}" class="w-48 h-64 inline-block overflow-hidden rounded mt-2 border shadow" target="_blank">
+                        <img src="{{ Storage::url($checkout->payment_file_path) }}" class="w-48 h-64 object-cover transition-transform duration-300 ease-in-out hover:scale-110" />
+                        {{-- TODO: File berbentuk PDF --}}
+                    </a>
+                </div>
+
+                <div class="flex flex-col items-end max-w-xs">
+                    <p class="font-semibold">Kirim Barang</p>
+                    @if ($checkout->is_accepted)
+                        <p class="italic text-sm text-right mt-1">
+                            Barang telah dikirim: {{ $checkout->expedition_note }}
+                        </p>
+                    @else
+                        <p class="text-yellow-600 text-sm max-w-xs text-right">
+                            Dengan menekan tombol di bawah, Anda perlu mengirimkan catatan pengiriman (ekspedisi, dan nomor resi)
+                            ke pengguna. Stok barang akan berkurang secara otomatis setelah Anda menekan tombol di bawah.
+                        </p>
+                        <form action="{{ route('dashboard.order.update', $checkout) }}" method="post" class="flex flex-col items-end">
+                            @csrf
+                            @method('PUT')
+                            <textarea name="expedition_note" id="expedition_note" rows="3" class="rounded border mt-1 max-w-xs w-full text-sm" placeholder="Ekspedisi JNT, Resi XXXXXXX"></textarea>
+                            <x-button type="submit" class="mt-2">
+                                Kirim
+                            </x-button>
+                        </form>
+                    @endif
+                </div>
+            </div>
+        @else
+            <div class="w-full flex justify-between items-center mt-4">
+                <div class="flex w-full justify-between">
+                    <div class="flex flex-col">
+                        <label for="payment_steps" class="font-semibold mb-1">Cara Pembayaran</label>
+                        <p class="italic">Scan QRis disini</p>
+                    </div>
+
+                    <div class="flex flex-col max-w-xs items-end">
+                        <label class="font-semibold mb-1">Catatan Toko:</label>
+                        <p class="italic text-right">{{ $checkout->expedition_note }}</p>
                     </div>
                 </div>
-            @else
-                <label for="payment_receipt" class="font-semibold mb-1">
-                    <span>
-                        Upload Bukti Pembayaran
-                    </span>
-                    @if ($checkout->payment_file_path)
-                        <span class="{{ (bool) $checkout->is_accepted ? 'text-green-500' : 'text-red-500' }}">
-                            ({{ $checkout->is_accepted ? 'Sudah dikonfirmasi toko' : 'Belum dikonfirmasi toko' }})
-                        </span>
-                    @endif
-                </label>
-                <form action="{{ route('checkout.update', $checkout->id) }}" method="post" enctype="multipart/form-data" class="flex flex-col">
-                    @csrf
-                    @method('PUT')
-                    <input type="file" name="payment_receipt" id="payment_receipt" required>
+
+                @if (!$checkout->payment_file_path)
+                    <form action="{{ route('checkout.destroy', $checkout->id) }}" method="post" onsubmit="return confirm('Apakah Anda ingin menghapus produk ini dari list checkout Anda?')">
+                        @csrf
+                        @method('DELETE')
+                        <x-danger-button type="submit">
+                            <i class="fas fa-trash"></i>
+                        </x-danger-button>
+                    </form>
+                @endif
+            </div>
+            <div class="w-full flex flex-col mt-4">
+                @if ($checkout->payment_file_path)
                     <div class="flex">
-                        <x-button class="mt-1">
-                            Kirim
-                        </x-button>
+                        @if ($checkout->is_accepted)
+                            <div class="px-2 py-1 rounded bg-green-500 text-white text-sm">
+                                Pesanan dikonfirmasi
+                            </div>
+                        @else
+                            <div class="px-2 py-1 rounded bg-blue-500 text-white text-sm">
+                                Menunggu Konfirmasi
+                            </div>
+                        @endif
                     </div>
-                </form>
-            @endif
-        </div>
+                @else
+                    <label for="payment_receipt" class="font-semibold mb-1">
+                        <span>
+                            Upload Bukti Pembayaran
+                        </span>
+                        @if ($checkout->payment_file_path)
+                            <span class="{{ (bool) $checkout->is_accepted ? 'text-green-500' : 'text-red-500' }}">
+                                ({{ $checkout->is_accepted ? 'Sudah dikonfirmasi toko' : 'Belum dikonfirmasi toko' }})
+                            </span>
+                        @endif
+                    </label>
+                    <form action="{{ route('checkout.update', $checkout->id) }}" method="post" enctype="multipart/form-data" class="flex flex-col">
+                        @csrf
+                        @method('PUT')
+                        <input type="file" name="payment_receipt" id="payment_receipt" required>
+                        <div class="flex">
+                            <x-button class="mt-1">
+                                Kirim
+                            </x-button>
+                        </div>
+                    </form>
+                @endif
+            </div>
+        @endif
+
     </div>
 </div>

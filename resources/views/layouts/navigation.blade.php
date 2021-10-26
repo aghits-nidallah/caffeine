@@ -37,11 +37,13 @@
                     </div>
                 @endif
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('checkout.index')" :active="request()->routeIs('checkout.index')">
-                        {{ __('Checkout') }}
-                    </x-nav-link>
-                </div>
+                @if (auth()->user()->store)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('dashboard.order.index')" :active="request()->routeIs('dashboard.order.index')">
+                            {{ __('Pesanan Saya') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -62,6 +64,10 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('cart.index')">
                             {{ __('Keranjang') }} ({{ auth()->user()->cart()->count() }})
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('checkout.index')">
+                            {{ __('Checkout') }} ({{ auth()->user()->checkout()->count() }})
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -118,10 +124,6 @@
             </div>
         @endif
 
-        <x-responsive-nav-link :href="route('checkout.index')" :active="request()->routeIs('checkout.index')">
-            {{ __('Checkout') }}
-        </x-responsive-nav-link>
-
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -132,6 +134,10 @@
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
                     {{ __('Keranjang') }} ({{ auth()->user()->cart()->count() }})
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('checkout.index')" :active="request()->routeIs('checkout.index')">
+                    {{ __('Checkout') }} ({{ auth()->user()->checkout()->count() }})
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

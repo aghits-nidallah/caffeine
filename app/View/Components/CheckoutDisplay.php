@@ -15,14 +15,23 @@ class CheckoutDisplay extends Component
     public $checkout;
 
     /**
+     * Indicates the component should be rendered as buyer or the seller.
+     *
+     * @var bool
+     */
+    public $show_as_seller;
+
+    /**
      * Create a new component instance.
      *
      * @param \App\Models\Checkout $checkout
+     * @param bool $show_as_seller
      * @return void
      */
-    public function __construct(Checkout $checkout)
+    public function __construct(Checkout $checkout, $showAsSeller = false)
     {
         $this->checkout = $checkout;
+        $this->show_as_seller = $showAsSeller;
     }
 
     /**
