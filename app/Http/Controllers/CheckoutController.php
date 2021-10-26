@@ -16,7 +16,9 @@ class CheckoutController extends Controller
     public function index()
     {
         return view('checkout.index', [
-            'checkouts' => auth()->user()->checkout,
+            'checkouts' => auth()->user()->checkout()
+                ->orderBy('is_accepted', 'asc')
+                ->orderBy('has_arrived', 'asc')->get(),
         ]);
     }
 
@@ -38,13 +40,13 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        $products_in_cart = auth()->user()->cart()->with('store')->get();
+        $products_in_cart = auth()->user()->cart;
 
         try {
             $products_in_cart->each(function($product) {
                 auth()->user()->checkout()->create([
                     'product_id' => $product->product_id,
-                    'store_id' => $product->store->id,
+                    'store_id' => $product->product->store->id,
                     'quantity' => $product->quantity,
                 ]);
             });

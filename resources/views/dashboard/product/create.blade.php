@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <a href="{{ route('dashboard.store.show', auth()->user()->id) }}" class="flex items-center">
+            <a href="{{ route('dashboard.store.show', auth()->user()->store) }}" class="flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i>
                 <span>Kembali</span>
             </a>

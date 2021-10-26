@@ -28,7 +28,7 @@ class ProductDataTable extends DataTable
             ->addIndexColumn()
             ->editColumn('name', 'dashboard.product.name')
             ->editColumn('price', 'Rp{{ number_format($price, 0, 0, ".") }}')
-            ->editColumn('active', 'dashboard.product.active')
+            // ->editColumn('active', 'dashboard.product.active')
             ->addColumn('action', 'dashboard.product.action')
             ->rawColumns(['name', 'active', 'action']);
     }
@@ -70,11 +70,11 @@ class ProductDataTable extends DataTable
     {
         return [
             Column::computed('DT_RowIndex')->title('#'),
-            Column::make('name'),
-            Column::make('stock'),
-            Column::make('price'),
-            Column::make('active'),
-            Column::computed('action'),
+            Column::make('name')->title('Nama'),
+            Column::make('stock')->title('Stok'),
+            Column::make('price')->title('Harga'),
+            // Column::make('active'),
+            Column::computed('action')->title('Opsi'),
         ];
     }
 

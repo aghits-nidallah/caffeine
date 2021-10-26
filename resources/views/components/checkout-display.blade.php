@@ -54,10 +54,16 @@
 
                 <div class="flex flex-col items-end max-w-xs">
                     @if ($checkout->is_accepted)
-                        <p class="font-semibold">Kirim Barang</p>
-                        <p class="italic text-sm text-right mt-1">
-                            Barang telah dikirim: {{ $checkout->expedition_note }}
-                        </p>
+                        @if ($checkout->has_arrived)
+                            <p class="italic text-sm text-right mt-1 bg-blue-500 text-white px-2 py-1 rounded">
+                                Pesanan telah diterima pembeli
+                            </p>
+                        @else
+                            <p class="font-semibold">Kirim Barang</p>
+                            <p class="italic text-sm text-right mt-1">
+                                Barang telah dikirim: {{ $checkout->expedition_note }}
+                            </p>
+                        @endif
                     @else
                         <p class="text-yellow-600 text-sm max-w-xs text-right">
                             Dengan menekan tombol di bawah, Anda perlu mengirimkan catatan pengiriman (ekspedisi, dan nomor resi)
@@ -109,7 +115,7 @@
                             @endif
                         </div>
 
-                        @if (!$checkout->has_arrived)
+                        @if (!$checkout->has_arrived && $checkout->is_accepted)
                             <form action="{{ route('dashboard.order.update', $checkout) }}" method="post">
                                 @csrf
                                 @method('PUT')

@@ -15,8 +15,9 @@ class OrderController extends Controller
      */
     public function index()
     {
+        // return ;
         return view('dashboard.order.index', [
-            'orders' => auth()->user()->orders()->where('payment_file_path', '!=', NULL)->orderBy('is_accepted', 'asc')->get(),
+            'orders' => auth()->user()->store->checkouts()->where('payment_file_path', '!=', NULL)->orderBy('is_accepted', 'asc')->get(),
         ]);
     }
 

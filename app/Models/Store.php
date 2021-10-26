@@ -15,7 +15,7 @@ class Store extends Model
     {
         return $this->hasMany(Product::class, 'user_id', 'user_id');
     }
-    
+
     public function getPictureUrlAttribute()
     {
         return $this->picture == NULL
@@ -28,6 +28,11 @@ class Store extends Model
         return $this->banner == NULL
             ? route('icon', ['value' => 'banner-' . $this->id, 'size' => 500])
             : Storage::url('store_banners/' . $this->banner);
+    }
+
+    public function checkouts()
+    {
+        return $this->hasMany(Checkout::class);
     }
 
     protected $fillable = [
