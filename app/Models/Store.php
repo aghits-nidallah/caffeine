@@ -36,6 +36,7 @@ class Store extends Model
         'picture',
         'banner',
         'description',
+        'payment_note',
     ];
 
     protected $appends = [

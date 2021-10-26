@@ -46,9 +46,19 @@
                                 ({{ strlen($store->description) }}/255)
                             </span>
                         </label>
-                        <textarea name="description" id="description" rows="4" placeholder="Belum ada deskripsi" maxlength="255" onkeyup="countLength()" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-2">{{ $store->description }}</textarea>
+                        <textarea name="description" id="description" rows="4" placeholder="Belum ada deskripsi" maxlength="255" onkeyup="countLength('description')" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-2">{{ $store->description }}</textarea>
                     </div>
-            
+
+                    <div class="flex flex-col mt-4">
+                        <label for="payment_note">
+                            Petunjuk pembayaran untuk pembeli
+                            <span id="payment_noteLength" class="text-sm">
+                                ({{ strlen($store->description) }}/255)
+                            </span>
+                        </label>
+                        <textarea name="payment_note" id="payment_note" rows="4" placeholder="Silahkan transfer dengan nominal yang tertera melalui BCA dengan nomor rekening xxxx-xxxx-xxxx-xxxx" maxlength="255" onkeyup="countLength('payment_note')" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-2">{{ $store->payment_note }}</textarea>
+                    </div>
+
                     <div class="flex justify-end mt-4">
                         <x-button>
                             Simpan
@@ -60,10 +70,10 @@
     </div>
     
     <script>
-        function countLength() {
-            let length = $("#description").val().length;
+        function countLength(id) {
+            let length = $(`#${id}`).val().length;
 
-            $("#descriptionLength").html(`(${length}/255)`);
+            $(`#${id}Length`).html(`(${length}/255)`);
         }
 
         function submitPicture(field, targetPreview) {

@@ -105,7 +105,7 @@ class StoreController extends Controller
 
         try {
             $store->update($request->only([
-                'name', 'description',
+                'name', 'description', 'payment_note',
             ]));
 
             if ($request->hasFile('picture')) {

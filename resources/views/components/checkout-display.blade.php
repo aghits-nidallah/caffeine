@@ -3,9 +3,21 @@
         <img src="{{ $checkout->product->first_picture_url }}" class="w-full h-full border rounded object-cover" />
     </div>
     <div class="flex flex-shrink flex-col ml-4 w-full">
-        <h6 class="font-semibold">
-            {{ $checkout->product->name }}
-        </h6>
+        <div class="flex items-center justify-between">
+            <h6 class="font-semibold">
+                {{ $checkout->product->name }}
+            </h6>
+
+            @if (!$checkout->payment_file_path)
+                <form action="{{ route('checkout.destroy', $checkout->id) }}" method="post" onsubmit="return confirm('Apakah Anda ingin menghapus produk ini dari list checkout Anda?')">
+                    @csrf
+                    @method('DELETE')
+                    <x-danger-button type="submit">
+                        <i class="fas fa-trash"></i>
+                    </x-danger-button>
+                </form>
+            @endif
+        </div>
         <p class="line-clamp-3 leading-snug mt-2">
             {{ $checkout->product->description }}
         </p>
@@ -65,9 +77,9 @@
         @else
             <div class="w-full flex justify-between items-center mt-4">
                 <div class="flex w-full justify-between">
-                    <div class="flex flex-col">
+                    <div class="flex flex-col max-w-xs">
                         <label for="payment_steps" class="font-semibold mb-1">Cara Pembayaran</label>
-                        <p class="italic">Scan QRis disini</p>
+                        <p class="italic">{{ $checkout->store->payment_note }}</p>
                     </div>
 
                     <div class="flex flex-col max-w-xs items-end">
@@ -75,16 +87,6 @@
                         <p class="italic text-right">{{ $checkout->expedition_note }}</p>
                     </div>
                 </div>
-
-                @if (!$checkout->payment_file_path)
-                    <form action="{{ route('checkout.destroy', $checkout->id) }}" method="post" onsubmit="return confirm('Apakah Anda ingin menghapus produk ini dari list checkout Anda?')">
-                        @csrf
-                        @method('DELETE')
-                        <x-danger-button type="submit">
-                            <i class="fas fa-trash"></i>
-                        </x-danger-button>
-                    </form>
-                @endif
             </div>
             <div class="w-full flex flex-col mt-4">
                 @if ($checkout->payment_file_path)
