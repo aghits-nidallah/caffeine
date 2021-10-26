@@ -76,13 +76,15 @@ class OrderController extends Controller
         Gate::authorize('update', $order);
 
         $request->validate([
-            'expedition_note' => ['required', 'string'],
+            'expedition_note' => ['nullable', 'string'],
+            'has_arrived' => ['nullable', 'boolean'],
         ]);
 
         try {
             $order->update([
                 'is_accepted' => true,
-                'expedition_note' => $request->expedition_note,
+                'expedition_note' => $request->expedition_note ?? $order->expedition_note,
+                'has_arrived' => $request->has_arrived,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with([

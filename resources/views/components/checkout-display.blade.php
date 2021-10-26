@@ -41,8 +41,8 @@
                 </div>
 
                 <div class="flex flex-col items-end max-w-xs">
-                    <p class="font-semibold">Kirim Barang</p>
                     @if ($checkout->is_accepted)
+                        <p class="font-semibold">Kirim Barang</p>
                         <p class="italic text-sm text-right mt-1">
                             Barang telah dikirim: {{ $checkout->expedition_note }}
                         </p>
@@ -88,15 +88,34 @@
             </div>
             <div class="w-full flex flex-col mt-4">
                 @if ($checkout->payment_file_path)
-                    <div class="flex">
-                        @if ($checkout->is_accepted)
-                            <div class="px-2 py-1 rounded bg-green-500 text-white text-sm">
-                                Pesanan dikonfirmasi
-                            </div>
-                        @else
-                            <div class="px-2 py-1 rounded bg-blue-500 text-white text-sm">
-                                Menunggu Konfirmasi
-                            </div>
+                    <div class="flex items-end justify-between">
+                        <div class="flex flex-col">
+                            @if ($checkout->is_accepted)
+                                @if ($checkout->has_arrived)
+                                    <div class="px-2 py-1 rounded bg-green-500 text-white text-sm">
+                                        Pesanan diterima
+                                    </div>
+                                @else
+                                    <div class="px-2 py-1 rounded bg-yellow-500 text-white text-sm">
+                                        Pesanan dalam pengiriman
+                                    </div>
+                                @endif
+                            @else
+                                <div class="px-2 py-1 rounded bg-blue-500 text-white text-sm">
+                                    Menunggu Konfirmasi
+                                </div>
+                            @endif
+                        </div>
+
+                        @if (!$checkout->has_arrived)
+                            <form action="{{ route('dashboard.order.update', $checkout) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="has_arrived" value="1" />
+                                <x-button class="mt-2">
+                                    Konfirmasi Pesanan Sampai
+                                </x-button>
+                            </form>
                         @endif
                     </div>
                 @else

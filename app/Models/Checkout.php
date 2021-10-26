@@ -33,5 +33,6 @@ class Checkout extends Model
         'payment_file_path',
         'expedition_note',
         'is_accepted',
+        'has_arrived',
     ];
 }
